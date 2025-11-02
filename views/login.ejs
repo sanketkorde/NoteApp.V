@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <style>
+        /* Full Background Image */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('https://res.cloudinary.com/dixxvm3uj/image/upload/v1762096159/IMG-20250919-WA0032_erfmky.jpg') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Container for letter + login box */
+        .container {
+            display: flex;
+            gap: 25px;
+            max-width: 950px;
+            width: 100%;
+            padding: 20px;
+            align-items: center;
+        }
+
+        /* Love letter card (now with visible blur background) */
+        .love-note {
+            flex: 1;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            color: #000000;
+            font-style: italic;
+            font-size: 1rem;
+            line-height: 1.6;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Login form card */
+        .login-card {
+            flex: 1;
+            max-width: 380px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 35px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+        }
+
+        .login-card h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #000000;
+        }
+
+        .login-card input {
+            width: 93%;
+            padding: 12px;
+            margin: 10px 0 18px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .login-card button {
+            width: 100%;
+            padding: 12px;
+            background: #ff4d6d;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-card button:hover {
+            transform: scale(1.02);
+        }
+
+        /* ✅ Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .love-note {
+                max-width: 90%;
+                font-size: 0.9rem;
+            }
+
+            .login-card {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Love Letter Card -->
+    <div class="love-note">
+        To the dumbo, <br><br>
+        Before you step in, I want to tell you something.<br>
+        This place — this little corner of the internet — is just for you.<br><br>
+        Every word, every thought, every memory here… is a part of me that belongs to you.<br><br>
+        You’ve been my peace, my chaos (and yes, more chaos 😭), my comfort, and my favorite story to write.<br><br>
+        I built this space — not to impress you, but to remind you how much you mean to me.
+    </div>
+
+    <!-- Login Form -->
+    <div class="login-card">
+        <h2>Login</h2>
+        <form action="/login" method="POST">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>
