@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home — For You</title>
+  <!-- Tailwind CDN (for quick prototype). Replace with your build if you use a bundler. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Prevent scrolling and ensure full-screen layout */
+    html, body { height: 100%; }
+    body { margin: 0; overflow: hidden; }
+
+    /* Background: use a local parchment image if available, otherwise a soft gradient */
+    .page-bg {
+      background-image: url('/assets/parchment.jpg'); /* put your parchment image here */
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+
+    /* Fallback gradient if the image isn't available */
+    .page-bg.fallback {
+      background-image: linear-gradient(135deg, #fff7ed 0%, #f9f3e7 40%, #f6efe8 100%);
+    }
+
+    /* Large faint watermark letter V */
+    .watermark {
+      position: absolute;
+      right: 8%;
+      top: 20%;
+      font-family: 'Great Vibes', cursive;
+      font-size: 28rem;
+      color: rgba(0,0,0,0.04);
+      pointer-events: none;
+      user-select: none;
+      transform: translate(0, -10%);
+      line-height: 0.8;
+    }
+
+    /* Small script import for watermark font fallback */
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body class="page-bg min-h-screen flex items-center justify-center">
+
+  <!-- Watermark: big faint initial -->
+  <div class="watermark">V</div>
+
+  <!-- Central card container -->
+  <main class="w-full max-w-5xl mx-auto p-6">
+    <div class="bg-white/75 backdrop-blur-sm rounded-2xl shadow-xl border border-white/60 p-8">
+
+      <!-- Header / Intro -->
+      <header class="text-center mb-6">
+        <h1 class="text-3xl md:text-4xl font-semibold text-gray-800">Welcome</h1>
+        <p class="mt-2 text-sm text-gray-600">This little corner is made for you — pick a memory.</p>
+      </header>
+
+      <!-- 2x2 grid of action cards -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+        <!-- Card: Notes -->
+        <a href="/notes" class="card group block rounded-lg p-6 bg-white/80 hover:bg-white transition-shadow shadow-sm hover:shadow-lg border border-gray-200">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-md bg-gradient-to-br from-pink-200 to-purple-200 flex items-center justify-center text-2xl font-medium text-pink-800">📝</div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">Notes</h3>
+              <p class="mt-1 text-sm text-gray-600">All the little notes I wrote just for you.</p>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card: Special -->
+        <a href="/special" class="card group block rounded-lg p-6 bg-white/80 hover:bg-white transition-shadow shadow-sm hover:shadow-lg border border-gray-200">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-md bg-gradient-to-br from-yellow-200 to-amber-200 flex items-center justify-center text-2xl font-medium text-amber-800">✨</div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">Special</h3>
+              <p class="mt-1 text-sm text-gray-600">Moments and surprises that mean the most.</p>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card: We are still together -->
+        <a href="/together" class="card group block rounded-lg p-6 bg-white/80 hover:bg-white transition-shadow shadow-sm hover:shadow-lg border border-gray-200">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-md bg-gradient-to-br from-green-200 to-emerald-200 flex items-center justify-center text-2xl font-medium text-green-800">💚</div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">We are still together</h3>
+              <p class="mt-1 text-sm text-gray-600">Notes that celebrate our present and every small joy.</p>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card: We are not together -->
+        <a href="/apart" class="card group block rounded-lg p-6 bg-white/80 hover:bg-white transition-shadow shadow-sm hover:shadow-lg border border-gray-200">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-md bg-gradient-to-br from-blue-200 to-indigo-200 flex items-center justify-center text-2xl font-medium text-indigo-800">🕊️</div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">We are not together</h3>
+              <p class="mt-1 text-sm text-gray-600">Notes for the days when life takes us apart — but not away.</p>
+            </div>
+          </div>
+        </a>
+
+      </section>
+
+      <!-- Footer small quote -->
+      <footer class="text-center mt-6 text-xs text-gray-500">Welcome to my world, made only for you.</footer>
+
+    </div>
+  </main>
+
+</body>
+</html>

@@ -24,11 +24,17 @@ app.listen(PORT, () => {
 
 
 app.get("/",(req,res)=>{
+    res.redirect("VNotes/login");
+})
+
+app.get("/VNotes/login",(req,res)=>{
     res.render("login");
 })
 
-app.get("/login",(req,res)=>{
-    res.render("login");
+app.get("/VNotes/home",(req,res)=>{
+    res.render("home");
 })
 
+
+ 
 
