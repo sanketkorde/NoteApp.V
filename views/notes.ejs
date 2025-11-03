@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes — For You</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background: url('https://res.cloudinary.com/dixxvm3uj/image/upload/v1762096159/IMG-20250919-WA0032_erfmky.jpg') no-repeat center center/cover;
+      background-attachment: fixed; /* ✅ Keeps background still */
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden; /* ✅ Prevents page scroll */
+    }
+
+    .watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Great Vibes', cursive;
+      font-size: 18rem;
+      color: rgba(0,0,0,0.04);
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+
+    .notes-container {
+      max-height: 70vh;         /* ✅ Adjust height (you can increase/decrease) */
+      overflow-y: auto;         /* ✅ Only this section scrolls */
+      padding-right: 8px;       /* ✅ Prevents content cut near scrollbar */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Watermark -->
+  <div class="watermark">V</div>
+
+  <!-- Content Section -->
+  <main class="relative z-10 max-w-4xl mx-auto py-10 px-5">
+
+    <!-- Header -->
+    <div class="bg-white/70 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-white/50">
+      <h1 class="text-3xl font-semibold text-gray-800 text-center">📜 Notes for You</h1>
+      <p class="text-center text-sm text-gray-600 mt-2">Every word here belongs to you — written with heart.</p>
+    </div>
+
+    <!-- Notes List (Scrollable Area) -->
+    <section class="mt-8 space-y-4 notes-container">
+
+      <% if (notes && notes.length > 0) { %>
+        <% notes.forEach(note => { %>
+          <div class="bg-white/70 backdrop-blur-lg p-5 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg transition">
+            <h2 class="text-lg font-semibold text-gray-800"><%= note.title %></h2>
+            <p class="text-gray-600 text-sm mt-1" style="white-space: pre-line;"><%= note.content %></p>
+            <p class="text-xs text-gray-400 text-right mt-2">
+              <%= new Date(note.createdAt).toLocaleString() %>
+            </p>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <p class="text-center text-gray-700 bg-white/70 p-4 rounded-xl">No notes yet — maybe start with one?</p>
+      <% } %>
+
+    </section>
+
+    <!-- Back Button -->
+    <div class="text-center mt-10">
+      <a href="/VNotes/home" class="px-6 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-xl shadow-md transition">
+        ⬅ Back to Home
+      </a>
+    </div>
+
+  </main>
+</body>
+</html>
