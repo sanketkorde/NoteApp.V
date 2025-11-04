@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Special — For You</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    html, body {
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      overflow-y: auto;
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://res.cloudinary.com/dixxvm3uj/image/upload/v1762255521/ChatGPT_Image_Nov_4_2025_04_53_50_PM_vx2uql.png') no-repeat center center/cover;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      transition: 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade {
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    .watermark {
+      position: absolute;
+      right: 8%;
+      top: 15%;
+      font-family: 'Great Vibes', cursive;
+      font-size: 26rem;
+      color: rgba(0, 0, 0, 0.05);
+      pointer-events: none;
+      user-select: none;
+    }
+  </style>
+
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Watermark
+  <div class="watermark">V</div> -->
+
+  <!-- Main Content -->
+  <main class="w-full max-w-5xl mx-auto flex flex-col justify-center items-center min-h-screen p-8">
+    <div class="bg-white/60 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/40 p-10 fade">
+
+      <!-- Header -->
+      <header class="text-center mb-10">
+        <h1 class="text-4xl font-bold text-gray-800">Special ✨</h1>
+        <p class="mt-3 text-gray-600 text-sm">Some things aren’t just memories — they’re pieces of me that stayed with you.</p>
+        <div class="w-16 h-[2px] bg-gray-300 mt-3 mx-auto rounded-full"></div>
+      </header>
+
+      <!-- Card Grid -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+
+        <!-- Gallery -->
+        <a href="/VNotes/special/gallery" class="card bg-white/80 backdrop-blur-md p-6 rounded-xl border border-gray-200 hover:shadow-xl transition block">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-pink-200 to-purple-200 flex items-center justify-center text-2xl">🖼️</div>
+            <div>
+              <h3 class="font-semibold text-lg">Gallery</h3>
+              <p class="text-sm text-gray-600">A small corner of captured moments & smiles.</p>
+            </div>
+          </div>
+        </a>
+
+        <!-- Letters I Never Sent -->
+        <a href="/VNotes/special/letters" class="card bg-white/80 backdrop-blur-md p-6 rounded-xl border border-gray-200 hover:shadow-xl transition block">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-yellow-200 to-amber-200 flex items-center justify-center text-2xl">💌</div>
+            <div>
+              <h3 class="font-semibold text-lg">Text I Never Sent</h3>
+              <p class="text-sm text-gray-600">Words I wrote, but never had the courage to share.</p>
+            </div>
+          </div>
+        </a>
+
+        <!-- Moments That Meant the Most -->
+        <a href="/special/moments" class="card bg-white/80 backdrop-blur-md p-6 rounded-xl border border-gray-200 hover:shadow-xl transition block">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-green-200 to-emerald-200 flex items-center justify-center text-2xl">🌸</div>
+            <div>
+              <h3 class="font-semibold text-lg">Moments That Meant the Most</h3>
+              <p class="text-sm text-gray-600">The little days that turned into forever memories.</p>
+            </div>
+          </div>
+        </a>
+
+        <!-- I Really Miss These Things -->
+        <a href="/VNotes/special/miss" class="card bg-white/80 backdrop-blur-md p-6 rounded-xl border border-gray-200 hover:shadow-xl transition block">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-blue-200 to-indigo-200 flex items-center justify-center text-2xl">💭</div>
+            <div>
+              <h3 class="font-semibold text-lg">I Really Miss These Things</h3>
+              <p class="text-sm text-gray-600">Little moments that still feel like home.</p>
+            </div>
+          </div>
+        </a>
+
+      </section>
+
+      <!-- Footer -->
+      <footer class="text-center mt-8 text-xs text-gray-500">
+        Some memories never fade — they just live quietly in our hearts.
+      </footer>
+
+    </div>
+  </main>
+
+</body>
+</html>

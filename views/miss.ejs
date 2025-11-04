@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>I Really Miss These Things — For You</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://res.cloudinary.com/dixxvm3uj/image/upload/v1762255521/ChatGPT_Image_Nov_4_2025_04_53_50_PM_vx2uql.png') no-repeat center center/cover;
+      background-attachment: fixed;
+    }
+
+    .fade {
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .watermark {
+      position: absolute;
+      right: 8%;
+      top: 15%;
+      font-family: 'Great Vibes', cursive;
+      font-size: 26rem;
+      color: rgba(0, 0, 0, 0.05);
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+
+    .miss-line {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(4px);
+      border-radius: 1rem;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      color: #333;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    .miss-line:hover {
+      transform: scale(1.02);
+      background: rgba(255, 255, 255, 0.8);
+    }
+  </style>
+
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Watermark -->
+  <div class="watermark">V</div>
+
+  <main class="w-full max-w-3xl mx-auto flex flex-col justify-center items-center min-h-screen p-6 fade">
+    <div class="bg-white/60 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/40 p-8 w-full relative z-10">
+
+      <!-- Header -->
+      <header class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-800">I Really Miss These Things 💭</h1>
+        <p class="mt-2 text-gray-600 text-sm">The small things that once made my world feel complete.</p>
+        <a href="/VNotes/special" class="mt-3 inline-block text-sm text-blue-600 hover:underline">← Back to Special</a>
+      </header>
+
+      <!-- Miss List -->
+      <section class="space-y-4 text-sm leading-relaxed">
+        <div class="miss-line">Late night chats that lasted until our eyes refused to stay open.</div>
+        <div class="miss-line">Sexting that we always called cuddles — just to make it sound innocent.</div>
+        <div class="miss-line">Your reply speed — even when I knew you were buried in your studies.</div>
+        <div class="miss-line">Morning walks where everything felt calm and right.</div>
+        <div class="miss-line">Morning cuddles in my bed — where time stopped existing.</div>
+        <div class="miss-line">Going to the gym with you — not for fitness, but just to see you smile.</div>
+        <div class="miss-line">Our talking stage — when every chat felt like a new adventure.</div>
+        <div class="miss-line">Hugs and kisses under the bridge — our tiny world away from everyone.</div>
+        <div class="miss-line">Long drives with peace, calm, and everything unspoken in between.</div>
+        <div class="miss-line">That kiss on the stairs — soft, sudden, and unforgettable.</div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="text-center mt-8 text-xs text-gray-500">
+        Maybe it’s not the moments I miss… maybe it’s the feeling of being yours.
+      </footer>
+
+    </div>
+  </main>
+</body>
+</html>

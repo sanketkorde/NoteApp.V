@@ -26,6 +26,15 @@ app.use(
     saveUninitialized: false,
   })
 );
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+  cloud_name: 'dixxvm3uj',     // your cloud name
+  api_key: '513229656191122',
+  api_secret: 'nrLRMm0lgPlrpN0EDwykmSqAnyM'
+});
+
+
 
 app.use(flash());
 app.use(passport.initialize());
@@ -97,6 +106,35 @@ app.post("/logout", (req, res) => {
     res.redirect("/VNotes/login");
   });
 });
+
+app.get("/VNotes/special", isLoggedIn, (req, res) => {
+  res.render("special", { user: req.user });
+});
+
+app.get('/VNotes/special/gallery', async (req, res) => {
+  try {
+    // Replace with your folder name in Cloudinary
+    const folderName = 'V';
+
+    // Fetch all assets (images + videos)
+    const result = await cloudinary.search
+      .expression(`folder:${folderName}`)
+      .sort_by('created_at', 'desc')
+      .max_results(100)
+      .execute();
+
+    // Send to EJS template
+    res.render('gallery', { media: result.resources });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching gallery from Cloudinary.');
+  }
+});
+
+app.get("/VNotes/special/miss", isLoggedIn, (req, res) => {
+  res.render("miss", { user: req.user });
+});
+
 
 // ✅ Start server
 app.listen(PORT, () => {

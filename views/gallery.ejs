@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gallery — For You</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      margin: 0;
+      background: url('https://res.cloudinary.com/dixxvm3uj/image/upload/v1762255521/ChatGPT_Image_Nov_4_2025_04_53_50_PM_vx2uql.png') no-repeat center center/cover;
+      background-attachment: fixed;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+      transition: transform 0.3s ease-in-out;
+    }
+  </style>
+
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="text-center py-8 bg-white/50 backdrop-blur-sm border-b border-white/30 shadow-md">
+    <h1 class="text-4xl font-bold text-gray-800">Gallery 🖼️</h1>
+    <p class="mt-2 text-gray-600 text-sm">Every captured moment tells a story of us.</p>
+    <a href="/VNotes/special" class="mt-3 inline-block text-sm text-blue-600 hover:underline">← Back to Special</a>
+  </header>
+
+  <main class="p-6 max-w-6xl mx-auto">
+    <div class="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+
+      <% media.forEach(item => { %>
+        <% if (item.resource_type === 'image') { %>
+          <img src="<%= item.secure_url %>" class="w-full rounded-lg shadow-md hover:scale-105 transition card" alt="">
+        <% } else if (item.resource_type === 'video') { %>
+          <video controls class="w-full rounded-lg shadow-md hover:scale-105 transition card">
+            <source src="<%= item.secure_url %>" type="video/mp4">
+          </video>
+        <% } %>
+      <% }) %>
+
+    </div>
+  </main>
+
+  <footer class="text-center text-xs text-gray-500 py-6">
+    A place where memories still breathe.
+  </footer>
+
+</body>
+</html>
