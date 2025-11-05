@@ -137,7 +137,7 @@ app.get("/VNotes/special/miss", isLoggedIn, (req, res) => {
 });
 
 app.get("/VNotes/special/text", isLoggedIn, (req, res) => {
-  res.render("notdone", { user: req.user });
+  res.render("text", { user: req.user });
 });
 
 app.get("/VNotes/special/moments", isLoggedIn, (req, res) => {
@@ -151,48 +151,8 @@ app.get("/VNotes/apart", isLoggedIn, (req, res) => {
   res.render("notdone", { user: req.user });
 }); 
 app.get("/VNotes/special/message", isLoggedIn, (req, res) => {
-  res.render("msg", { user: req.user });
+  res.render("notdone", { user: req.user });
 });
-app.post("/VNotes/special/message/send", isLoggedIn,(req, res) => {
-  const { message } = req.body;
-
-  if (!message.trim()) {
-    return res.send("Message cannot be empty.");
-  }
-
-  // Create /data directory if not exists
-  const dataDir = path.join(process.cwd(), "data");
-  if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir);
-
-  // File to store messages
-  const filePath = path.join(dataDir, "messages.json");
-
-  // Read old messages
-  let messages = [];
-  if (fs.existsSync(filePath)) {
-    const fileData = fs.readFileSync(filePath, "utf-8");
-    try {
-      messages = JSON.parse(fileData);
-    } catch {
-      messages = [];
-    }
-  }
-
-  // Add new message
-  const newEntry = {
-    message,
-    date: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
-  };
-
-  messages.push(newEntry);
-
-  // Save back to file
-  fs.writeFileSync(filePath, JSON.stringify(messages, null, 2), "utf-8");
-
-  // Render confirmation
-  res.render("msg_sent", { isLoggedIn, message: newEntry.message, user: req.user});
-});
-
 // ✅ Start server
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
