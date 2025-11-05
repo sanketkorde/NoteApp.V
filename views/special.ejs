@@ -32,24 +32,31 @@
       animation: fadeIn 0.8s ease-in-out;
     }
 
-    .watermark {
-      position: absolute;
-      right: 8%;
-      top: 15%;
-      font-family: 'Great Vibes', cursive;
-      font-size: 26rem;
-      color: rgba(0, 0, 0, 0.05);
+    .flash-message {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      opacity: 0;
       pointer-events: none;
-      user-select: none;
+      transition: opacity 0.4s ease;
+      z-index: 50;
+    }
+
+    .flash-message.show {
+      opacity: 1;
+      pointer-events: auto;
     }
   </style>
 
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 </head>
 <body>
-
-  <!-- Watermark
-  <div class="watermark">V</div> -->
 
   <!-- Main Content -->
   <main class="w-full max-w-5xl mx-auto flex flex-col justify-center items-center min-h-screen p-8">
@@ -77,7 +84,7 @@
         </a>
 
         <!-- Letters I Never Sent -->
-        <a href="/VNotes/special/letters" class="card bg-white/80 backdrop-blur-md p-6 rounded-xl border border-gray-200 hover:shadow-xl transition block">
+        <a href="/VNotes/special/text" class="card bg-white/80 backdrop-blur-md p-6 rounded-xl border border-gray-200 hover:shadow-xl transition block">
           <div class="flex items-start gap-4">
             <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-yellow-200 to-amber-200 flex items-center justify-center text-2xl">💌</div>
             <div>
@@ -88,7 +95,7 @@
         </a>
 
         <!-- Moments That Meant the Most -->
-        <a href="/special/moments" class="card bg-white/80 backdrop-blur-md p-6 rounded-xl border border-gray-200 hover:shadow-xl transition block">
+        <a href="/VNotes/special/moments" class="card bg-white/80 backdrop-blur-md p-6 rounded-xl border border-gray-200 hover:shadow-xl transition block">
           <div class="flex items-start gap-4">
             <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-green-200 to-emerald-200 flex items-center justify-center text-2xl">🌸</div>
             <div>
@@ -109,6 +116,28 @@
           </div>
         </a>
 
+        <!-- Message for Me -->
+        <a href="/VNotes/special/message" class="card bg-white/80 backdrop-blur-md p-6 rounded-xl border border-gray-200 hover:shadow-xl transition block">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-purple-200 to-pink-300 flex items-center justify-center text-2xl">🕊️</div>
+            <div>
+              <h3 class="font-semibold text-lg">Message for Me</h3>
+              <p class="text-sm text-gray-600">If there’s a message meant for me, this is where it belongs.</p>
+            </div>
+          </div>
+        </a>
+
+        <!-- Locked Card -->
+        <div id="lockedCard" class="card bg-white/80 backdrop-blur-md p-6 rounded-xl border border-gray-200 hover:shadow-xl transition block cursor-pointer">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center text-2xl">🔒</div>
+            <div>
+              <h3 class="font-semibold text-lg">Locked Card</h3>
+              <p class="text-sm text-gray-600">This secret will unlock at the right time.</p>
+            </div>
+          </div>
+        </div>
+
       </section>
 
       <!-- Footer -->
@@ -116,8 +145,38 @@
         Some memories never fade — they just live quietly in our hearts.
       </footer>
 
+      <!-- Back Button -->
+      <div class="text-center mt-10">
+        <a href="/VNotes/home" class="px-6 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-xl shadow-md transition">
+          ⬅ Back to Home
+        </a>
+      </div>
+
     </div>
   </main>
+
+  <!-- Flash Message -->
+  <div id="flashMessage" class="flash-message"></div>
+
+  <script>
+    const lockedCard = document.getElementById('lockedCard');
+    const flash = document.getElementById('flashMessage');
+    const unlockTime = new Date('2026-01-29T12:00:00+05:30').getTime(); // IST
+
+    lockedCard.addEventListener('click', () => {
+      const now = new Date().getTime();
+
+      if (now >= unlockTime) {
+        // Unlocked -> redirect
+        window.location.href = '/VNotes/special/locked';
+      } else {
+        // Flash message
+        flash.innerText = "🔒 This card is locked. It will unlock on 29 Jan 2026, 12:00 PM.";
+        flash.classList.add('show');
+        setTimeout(() => flash.classList.remove('show'), 3000);
+      }
+    });
+  </script>
 
 </body>
 </html>
