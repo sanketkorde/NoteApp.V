@@ -151,8 +151,19 @@ app.get("/VNotes/apart", isLoggedIn, (req, res) => {
   res.render("notdone", { user: req.user });
 }); 
 app.get("/VNotes/special/message", isLoggedIn, (req, res) => {
-  res.render("notdone", { user: req.user });
+  res.render("msg", { user: req.user });
 });
+
+app.post("/VNotes/special/message", isLoggedIn, (req, res) => {
+  const { message } = req.body;
+  console.log("New Message Received:", message);
+  res.redirect("/VNotes/special/message/sent");
+});
+
+app.get("/VNotes/special/message/sent", isLoggedIn, (req, res) => {
+  res.render("msg_sent", { user: req.user });
+});
+
 // ✅ Start server
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

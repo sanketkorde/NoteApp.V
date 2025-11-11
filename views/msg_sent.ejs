@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Message Sent 💌</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Message Sent</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="flex items-center justify-center h-screen bg-gray-900 text-white text-center">
-  <div>
-    <h1 class="text-3xl font-bold mb-4">💌 Message Saved</h1>
-    <p class="text-gray-300 mb-8">Your message has been safely kept — maybe someday I’ll read it.</p>
-    <div class="bg-white/10 backdrop-blur-sm rounded-xl px-6 py-4 inline-block text-left">
-      <p class="text-gray-200 text-sm italic">“<%= message %>”</p>
-    </div>
-    <div class="mt-8">
-      <a href="/VNotes/home" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition">⬅ Back</a>
+
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
+  <div class="bg-gray-800 p-10 rounded-2xl shadow-xl text-center max-w-md">
+    <h1 class="text-4xl font-bold text-pink-500 mb-4">✓</h1>
+    <h2 class="text-2xl font-semibold mb-4">Message Sent!</h2>
+    <p class="text-gray-300 mb-6">Your message has been delivered successfully.</p>
+
+    <a 
+      href="/VNotes/special/message"
+      class="bg-pink-600 hover:bg-pink-500 py-3 px-6 rounded-xl inline-block font-semibold transition">
+      Send Another
+    </a>
+
+    <div class="mt-4">
+      <a href="/VNotes/home" class="text-gray-300 hover:text-white">← Back to Home</a>
     </div>
   </div>
 </body>
