@@ -1,21 +1,35 @@
-const PORT = process.env.PORT || 5000;
+require("dotenv").config();   // Load .env first
+
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const methodOverride = require("method-override");
-const app = express();
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const notes = require("./data/notes.data");
-require("dotenv").config();   // Load .env variables
+const cloudinary = require("cloudinary").v2;
 
-// Middleware
+const notes = require("./data/notes.data");
+
+const app = express();
+
+// Render sets PORT automatically
+const PORT = process.env.PORT || 5000;
+
+// Required for Render (reverse proxy)
+app.set("trust proxy", 1);
+
+// ---------------------------
+// ✅ Middleware
+// ---------------------------
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+
+// Serve static files (important for deployment)
+app.use(express.static(path.join(__dirname, "public")));
 
 // ---------------------------
 // ✅ Session Setup
@@ -25,14 +39,17 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      secure: false, // Render free tier doesn't support HTTPS on internal server
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    },
   })
 );
 
 // ---------------------------
 // ✅ Cloudinary Setup
 // ---------------------------
-const cloudinary = require("cloudinary").v2;
-
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -47,7 +64,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // ---------------------------
-// ✅ Single allowed user from ENV
+// ✅ Allowed User from .env
 // ---------------------------
 const USER = {
   username: process.env.LOGIN_USER,
@@ -61,9 +78,8 @@ passport.use(
   new LocalStrategy((username, password, done) => {
     if (username === USER.username && password === USER.password) {
       return done(null, USER);
-    } else {
-      return done(null, false, { message: "Invalid Username or Password" });
     }
+    return done(null, false, { message: "Invalid Username or Password" });
   })
 );
 
@@ -72,12 +88,12 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((username, done) => {
-  if (username === USER.username) done(null, USER);
-  else done(null, false);
+  if (username === USER.username) return done(null, USER);
+  return done(null, false);
 });
 
 // ---------------------------
-// ✅ Middleware to protect routes
+// ✅ Auth Middleware
 // ---------------------------
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) return next();
@@ -87,7 +103,6 @@ function isLoggedIn(req, res, next) {
 // ---------------------------
 // ✅ Routes
 // ---------------------------
-
 app.get("/", (req, res) => {
   res.redirect("/VNotes/login");
 });
@@ -115,32 +130,37 @@ app.get("/VNotes/notes", isLoggedIn, (req, res) => {
   res.render("notes", { notes, user: req.user });
 });
 
-// Logout
-app.post("/logout", (req, res) => {
-  req.logout(() => {
+// ---------------------------
+// ✅ Logout (Render Safe)
+// ---------------------------
+app.post("/logout", (req, res, next) => {
+  req.logout(function (err) {
+    if (err) return next(err);
     res.redirect("/VNotes/login");
   });
 });
 
-// Special pages
+// ---------------------------
+// ✅ Special Pages
+// ---------------------------
 app.get("/VNotes/special", isLoggedIn, (req, res) => {
   res.render("special", { user: req.user });
 });
 
-app.get('/VNotes/special/gallery', isLoggedIn, async (req, res) => {
+app.get("/VNotes/special/gallery", isLoggedIn, async (req, res) => {
   try {
-    const folderName = 'V'; // You can move this to .env also if needed
+    const folderName = process.env.CLOUDINARY_FOLDER || "V";
 
     const result = await cloudinary.search
       .expression(`folder:${folderName}`)
-      .sort_by('created_at', 'desc')
-      .max_results(100)
+      .sort_by("created_at", "desc")
+      .max_results(200)
       .execute();
 
-    res.render('gallery', { media: result.resources });
+    res.render("gallery", { media: result.resources });
   } catch (err) {
     console.error(err);
-    res.status(500).send('Error fetching gallery from Cloudinary.');
+    res.status(500).send("Error fetching gallery from Cloudinary.");
   }
 });
 
@@ -182,5 +202,5 @@ app.get("/VNotes/special/message/sent", isLoggedIn, (req, res) => {
 // ✅ Start Server
 // ---------------------------
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`✅ Server running on Render at port ${PORT}`);
 });
