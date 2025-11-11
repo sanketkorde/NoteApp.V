@@ -94,7 +94,7 @@ app.post(
 );
 
 app.get("/VNotes/home", isLoggedIn, (req, res) => {
-  res.render("home", { user: req.user });
+  res.render("notdone", { user: req.user });
 });
 
 app.get("/VNotes/notes", isLoggedIn, (req, res) => {
