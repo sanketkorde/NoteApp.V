@@ -1,5 +1,4 @@
-require("dotenv").config();   // Load .env first
-
+require("dotenv").config(); // Load .env first
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
@@ -9,7 +8,6 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const cloudinary = require("cloudinary").v2;
-
 const notes = require("./data/notes.data");
 
 const app = express();
@@ -111,13 +109,31 @@ app.get("/VNotes/login", (req, res) => {
   res.render("login", { message: req.flash("error") });
 });
 
+// ---------------------------
+// ✅ Enhanced Login Logging
+// ---------------------------
 app.post(
   "/VNotes/login",
+  (req, res, next) => {
+    const { username } = req.body;
+    const userAgent = req.headers["user-agent"];
+    const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+    const time = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+
+    console.log(`🟡 LOGIN ATTEMPT — Username: ${username} | Time: ${time} | IP: ${ip} | Device: ${userAgent}`);
+    next();
+  },
   passport.authenticate("local", {
     failureRedirect: "/VNotes/login",
     failureFlash: true,
   }),
   (req, res) => {
+    const userAgent = req.headers["user-agent"];
+    const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+    const time = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+
+    console.log(`✅ SUCCESSFUL LOGIN — User: ${req.user.username} | Time: ${time} | IP: ${ip} | Device: ${userAgent}`);
+
     res.redirect("/VNotes/home");
   }
 );
@@ -190,7 +206,7 @@ app.get("/VNotes/special/message", isLoggedIn, (req, res) => {
 
 app.post("/VNotes/special/message", isLoggedIn, (req, res) => {
   const { message } = req.body;
-  console.log("New Message Received:", message);
+  console.log("💬 New Message Received:", message);
   res.redirect("/VNotes/special/message/sent");
 });
 
@@ -202,5 +218,5 @@ app.get("/VNotes/special/message/sent", isLoggedIn, (req, res) => {
 // ✅ Start Server
 // ---------------------------
 app.listen(PORT, () => {
-  console.log(`✅ Server running on Render at port ${PORT}`);
+  console.log(`🚀 Server running on Render at port ${PORT}`);
 });
