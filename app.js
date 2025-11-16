@@ -143,7 +143,7 @@ app.get("/VNotes/home", isLoggedIn, (req, res) => {
 });
 
 app.get("/VNotes/notes", isLoggedIn, (req, res) => {
-  res.render("notdone", { notes, user: req.user });
+  res.render("notes", { notes, user: req.user });
 });
 
 // ---------------------------
